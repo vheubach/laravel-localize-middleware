@@ -19,10 +19,10 @@ class DeterminerManager extends Manager
     protected function createCookieDriver()
     {
         $determiner = new Determiners\Cookie(
-            $this->app['config']['localize-middleware']['cookie']
+            $this->container['config']['localize-middleware']['cookie']
         );
 
-        $determiner->setFallback($this->app['config']['app']['fallback_locale']);
+        $determiner->setFallback($this->container['config']['app']['fallback_locale']);
 
         return $determiner;
     }
@@ -35,10 +35,10 @@ class DeterminerManager extends Manager
     protected function createHostDriver()
     {
         $determiner = new Determiners\Host(
-            new Collection($this->app['config']['localize-middleware']['hosts'])
+            new Collection($this->container['config']['localize-middleware']['hosts'])
         );
 
-        $determiner->setFallback($this->app['config']['app']['fallback_locale']);
+        $determiner->setFallback($this->container['config']['app']['fallback_locale']);
 
         return $determiner;
     }
@@ -51,10 +51,10 @@ class DeterminerManager extends Manager
     protected function createParameterDriver()
     {
         $determiner = new Determiners\Parameter(
-            $this->app['config']['localize-middleware']['parameter']
+            $this->container['config']['localize-middleware']['parameter']
         );
 
-        $determiner->setFallback($this->app['config']['app']['fallback_locale']);
+        $determiner->setFallback($this->container['config']['app']['fallback_locale']);
 
         return $determiner;
     }
@@ -67,10 +67,10 @@ class DeterminerManager extends Manager
     protected function createHeaderDriver()
     {
         $determiner = new Determiners\Header(
-            $this->app['config']['localize-middleware']['header']
+            $this->container['config']['localize-middleware']['header']
         );
 
-        $determiner->setFallback($this->app['config']['app']['fallback_locale']);
+        $determiner->setFallback($this->container['config']['app']['fallback_locale']);
 
         return $determiner;
     }
@@ -83,10 +83,10 @@ class DeterminerManager extends Manager
     protected function createSessionDriver()
     {
         $determiner = new Determiners\Session(
-            $this->app['config']['localize-middleware']['session']
+            $this->container['config']['localize-middleware']['session']
         );
 
-        $determiner->setFallback($this->app['config']['app']['fallback_locale']);
+        $determiner->setFallback($this->container['config']['app']['fallback_locale']);
 
         return $determiner;
     }
@@ -98,7 +98,7 @@ class DeterminerManager extends Manager
      */
     protected function createStackDriver()
     {
-        $determiners = (new Collection((array) $this->app['config']['localize-middleware']['driver']))
+        $determiners = (new Collection((array) $this->container['config']['localize-middleware']['driver']))
             ->filter(function ($driver) {
                 return $driver !== 'stack';
             })
@@ -107,7 +107,7 @@ class DeterminerManager extends Manager
             });
 
         return (new Determiners\Stack($determiners))
-            ->setFallback($this->app['config']['app']['fallback_locale']);
+            ->setFallback($this->container['config']['app']['fallback_locale']);
     }
 
     /**
@@ -117,7 +117,7 @@ class DeterminerManager extends Manager
      */
     public function getDefaultDriver()
     {
-        $driver = $this->app['config']['localize-middleware']['driver'];
+        $driver = $this->container['config']['localize-middleware']['driver'];
 
         return is_array($driver) ? 'stack' : $driver;
     }
