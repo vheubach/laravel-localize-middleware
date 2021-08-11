@@ -36,10 +36,7 @@ class Header extends Determiner
     public function determineLocale(Request $request)
     {
         $header = $request->header($this->header, $this->fallback);
-
-        $acceptLanguages = $this->sortBySignificance($header);
-
-        return $this->getSupported(array_keys($acceptLanguages));
+        return empty($header) ? null : $this->getSupported(array_keys($this->sortBySignificance($header)));
     }
 
     /**
