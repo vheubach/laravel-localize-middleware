@@ -3,7 +3,8 @@
 namespace BenConstable\Localize\Http\Middleware;
 
 use Closure;
-use Illuminate\Foundation\Application;
+// use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\App;
 use BenConstable\Localize\DeterminerManager;
 
 /**
@@ -34,7 +35,8 @@ class Localize
      * @return  void
      */
     public function __construct(
-        Application $app,
+//        Application $app,
+        App $app,
         DeterminerManager $determinerManager
     ) {
         $this->app = $app;
