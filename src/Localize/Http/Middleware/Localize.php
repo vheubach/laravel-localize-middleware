@@ -55,7 +55,8 @@ class Localize
     {
         $locale = $this->determinerManager->determineLocale($request);
 
-        $this->app->setLocale($locale);
+//        $this->app->setLocale($locale);
+        App::setLocale($locale);
 
         return $next($request);
     }
